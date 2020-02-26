@@ -1,0 +1,1 @@
+before run the website, configurating website parameters and run all sql under folder 'sql_DB_English'.

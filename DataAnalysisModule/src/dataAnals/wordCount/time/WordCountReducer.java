@@ -1,0 +1,24 @@
+package dataAnals.wordCount.time;
+
+import java.io.IOException;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Reducer;
+
+import mr2db.tableDBWritable.PublishTblWritable;
+import mr2db.tableDBWritable.TypeTblWritable;
+ 
+
+
+public class WordCountReducer extends Reducer<Text, IntWritable, Text, PublishTblWritable> {
+	@Override
+	protected void reduce(Text key, Iterable<IntWritable> values, Context context)
+											throws IOException, InterruptedException {
+		int count = 0;
+		for(IntWritable value:values){
+			count +=value.get();
+		}
+		context.write(key, new PublishTblWritable(Integer.parseInt(key+""),count));
+	}
+}
